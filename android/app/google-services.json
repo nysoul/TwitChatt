@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "653386282505",
+    "firebase_url": "https://twitchat-baefe.firebaseio.com",
+    "project_id": "twitchat-baefe",
+    "storage_bucket": "twitchat-baefe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653386282505:android:b52cf86ec969b4b584aad8",
+        "android_client_info": {
+          "package_name": "com.example.twitchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653386282505-nd1qg21ojhdrbf81f8d084d1hup42bch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQpFcXV7bAiPn7E2q36HWd--EdtF0qp2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653386282505-nd1qg21ojhdrbf81f8d084d1hup42bch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
