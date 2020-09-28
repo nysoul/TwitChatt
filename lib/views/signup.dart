@@ -17,8 +17,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController passwordEditingController = new TextEditingController();
-  TextEditingController usernameEditingController =
-      new TextEditingController();
+  TextEditingController usernameEditingController = new TextEditingController();
 
   AuthService authService = new AuthService();
   DatabaseMethods databaseMethods = new DatabaseMethods();
@@ -26,18 +25,16 @@ class _SignUpState extends State<SignUp> {
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
+  //Function which completes the sign up process by communicating with firebase auth service
   singUp() async {
-
     if(formKey.currentState.validate()){
       setState(() {
-
         isLoading = true;
       });
 
       await authService.signUpWithEmailAndPassword(emailEditingController.text.trim(),
           passwordEditingController.text.trim()).then((result){
             if(result != null){
-
               Map<String,String> userDataMap = {
                 "userName" : usernameEditingController.text,
                 "userEmail" : emailEditingController.text
@@ -51,12 +48,16 @@ class _SignUpState extends State<SignUp> {
 
               Navigator.pushReplacement(context, MaterialPageRoute(
                   builder: (context) => ChatRoom()
-              ));
+              )
+              );
             }
-      });
+      }
+      );
     }
   }
 
+
+  //The sign up UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,7 +162,6 @@ class _SignUpState extends State<SignUp> {
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.w500,
                         fontStyle: FontStyle.italic),
-
                   ),
                 ),
               ],
@@ -173,6 +173,5 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
-    ;
   }
 }

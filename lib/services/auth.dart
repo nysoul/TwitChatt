@@ -3,6 +3,7 @@ import 'package:twitchat/views/chat.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+//This class contains the function definitions of the firebase auth
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -42,8 +43,6 @@ class AuthService {
       return null;
     }
   }
-
-
 
   Future signOut() async {
     try {

@@ -7,8 +7,7 @@ import 'package:twitchat/views/forgot_password.dart';
 import 'package:twitchat/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:twitter_api/twitter_api.dart';
-import 'dart:convert';
+
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -29,6 +28,7 @@ class _SignInState extends State<SignIn> {
 
   bool isLoading = false;
 
+  //Function for connecting with firebase auth and validating sign in process
   signIn() async {
     if (formKey.currentState.validate()) {
       setState(() {
@@ -60,46 +60,7 @@ class _SignInState extends State<SignIn> {
     }
   }
 
-  Future twitLogin() async {
-    print("hi");
-    // Setting placeholder api keys
-    String consumerApiKey = "NG8RuSe3tQwXf9I8eUro75TKP";
-    String consumerApiSecret = "3Mxzfij4gqQoEQbV75vRPBW9Weck6C4ZAh8jc6nfNslUnEaVCK";
-    String accessToken = "1307004239344889857-tP5EgHzRkyOlBqPozKoBGrGD5kXhZa";
-    String accessTokenSecret = "E0HM3Auqn2X4HBmTHITbnnWW0hn1D3PeOccjFqe7OeHS3";
-
-    final _twitterOauth = new twitterApi(
-        consumerKey: consumerApiKey,
-        consumerSecret: consumerApiSecret,
-        token: accessToken,
-        tokenSecret: accessTokenSecret
-    );
-
-    Future twitterRequest = _twitterOauth.getTwitterRequest(
-      // Http Method
-      "GET",
-      // Endpoint you are trying to reach
-      "statuses/user_timeline.json",
-      // The options for the request
-      options: {
-        "user_id": "19025957",
-        "screen_name": "TTCnotices",
-        "count": "200",
-        "trim_user": "false",
-        "tweet_mode": "extended", // Used to prevent truncating tweets
-      },
-    );
-
-    var res = await twitterRequest;
-    //print(res.statusCode);
-    //print(res.body);
-
-    var tweets = json.decode(res.body);
-    print(tweets);
-
-  }
-
-
+  //Sign in UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +80,6 @@ class _SignInState extends State<SignIn> {
                     child: Column(
                       children: [
                         TextFormField(
-
                           validator: (val) {
                             return RegExp(
                                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -127,14 +87,9 @@ class _SignInState extends State<SignIn> {
                                 ? null
                                 : "Please Enter Correct Email";
                           },
-
-
                           controller: emailEditingController,
-
                           style: TextStyle(color: Colors.black87, fontSize: 16,),
                           decoration:textFieldInputDecoration("email"),
-
-
                         ),
                         TextFormField(
                           obscureText: true,
@@ -252,6 +207,6 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-    );
-  }
-}
+          );
+        }
+      }

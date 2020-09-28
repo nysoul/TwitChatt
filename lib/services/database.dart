@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//A class with functions to communicate with the firebase database
 class DatabaseMethods {
   Future<void> addUserInfo(userData) async {
     Firestore.instance.collection("users").add(userData).catchError((e) {
       print(e.toString());
-    });
+    }
+    );
   }
-//
+
+
   getUserInfo(String email) async {
     return Firestore.instance
         .collection("users")
@@ -14,20 +17,20 @@ class DatabaseMethods {
         .getDocuments()
         .catchError((e) {
       print(e.toString());
-    });
+    }
+    );
   }
 
-//  searchByName(String searchField) {
-//    return Firestore.instance
-//        .collection("users")
-//        .where('userName', isEqualTo: searchField)
-//        .getDocuments();
-//  }
+
   searchByName(String searchField) {
     return Firestore.instance
         .collection("users")
         .where('userName', isEqualTo: searchField)
         .getDocuments();
+  }
+
+   getAllUsers() async{
+    return await Firestore.instance.collection("users").getDocuments();
   }
 
 
@@ -38,7 +41,8 @@ class DatabaseMethods {
         .setData(chatRoom)
         .catchError((e) {
       print(e);
-    });
+    }
+    );
   }
 
   getChats(String chatRoomId) async{

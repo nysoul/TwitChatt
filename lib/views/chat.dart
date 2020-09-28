@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:twitchat/helper/constants.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
   final String chatRoomId;
-
   Chat({this.chatRoomId});
 
   @override
@@ -16,28 +16,31 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
-//  ScrollController _controller = ScrollController(initialScrollOffset: _controller.position.maxScrollExtent)
+  ScrollController _controller = new ScrollController();
 
+  //widget for building chat screen of users
   Widget chatMessages(){
     return StreamBuilder(
       stream: chats,
       builder: (context, snapshot){
         return snapshot.hasData ?  ListView.builder(
           itemCount: snapshot.data.documents.length,
-//          controller: _controller,
+          controller: _controller,
             itemBuilder: (context, index){
               return MessageTile(
                 message: snapshot.data.documents[index].data["message"],
                 sendByMe: Constants.myName == snapshot.data.documents[index].data["sendBy"],
               );
-            }) : Container();
+            }
+            )
+            : Container();
       },
     );
   }
 
+  //this function fires up whenever a new message is sent
   addMessage() {
     if (messageEditingController.text.trim().isNotEmpty) {
       Map<String, dynamic> chatMessageMap = {
@@ -47,15 +50,14 @@ class _ChatState extends State<Chat> {
             .now()
             .millisecondsSinceEpoch,
       };
-
       DatabaseMethods().addMessage(widget.chatRoomId, chatMessageMap);
-
       setState(() {
         messageEditingController.text = "";
       });
     }
   }
 
+  //Automatically obtain all the messages on starting of chatroom
   @override
   void initState() {
     DatabaseMethods().getChats(widget.chatRoomId).then((val) {
@@ -63,22 +65,38 @@ class _ChatState extends State<Chat> {
         chats = val;
       });
     });
+    //Scrolling to last of the chat
+    Timer(
+      Duration(milliseconds:250),
+          () => _controller.jumpTo(_controller.position.maxScrollExtent),
+    );
     super.initState();
   }
 
+  //For obtaining sender name to be used on chat screen
+  getSender(String chatroomid)
+  {
+    chatroomid=widget.chatRoomId;
+    String sender;
+    return sender=chatroomid.replaceAll("_","").replaceAll(Constants.myName, "");
+  }
+
+  //Building the chat screen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(context),
+      appBar: appBarChat(context,getSender(widget.chatRoomId)),
       body: Opacity(
         opacity: 0.9,
         child: Container(
           child: Stack(
             children: [
-              Container(decoration: BoxDecoration(
+              Container(
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
           color: Colors.transparent,
             image: DecorationImage(
-              fit: BoxFit.fill,
+             fit: (BoxFit.cover),
               image: AssetImage(
                 'assets/images/cartoon2.jpeg',
               ),
@@ -86,8 +104,10 @@ class _ChatState extends State<Chat> {
           ),
         ),
               Container(
-//
+                height: MediaQuery.of(context).size.height - 140,
                 decoration: BoxDecoration(
+                  border: Border(bottom:BorderSide(width: 3,color: Colors.grey)),
+//                  borderRadius: BorderRadius.circular(1000),
                     color: Colors.white,
                     gradient: LinearGradient(
                         begin: FractionalOffset.topCenter,
@@ -95,58 +115,53 @@ class _ChatState extends State<Chat> {
                         colors: [
                           Colors.grey.withOpacity(0),
                           Colors.black,
-                        ],
+                                ],
                         stops: [
                           0.99,
                           1.0
-                        ])),
-
-            child: chatMessages()),
+                              ]
+                    )
+                ),
+            child: chatMessages()
+              ),
               Container(alignment: Alignment.bottomCenter,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 child: Container(
-
                   height: 65,
                   padding: EdgeInsets.symmetric(horizontal:4,vertical: 5),
                   color: Colors.transparent,
-
-
                   //borderRadius: BorderRadius.circular(40),
                   child: Row(
                     children: [
                       Expanded(
                           child: TextField(
-
                             controller: messageEditingController,
                             style: simpleTextStyle(),
                             decoration:InputDecoration(
-
                                 hintText: "Message ...",
                                 hintStyle: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                 ),
-
                               border:  OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                   const Radius.circular(50.0),
                                 ),
-
                               ),
                               fillColor: Colors.grey.withOpacity(0.5),
                           filled: true,
                              ),
-
                           )
                           ),
                       SizedBox(width: 16,),
                       GestureDetector(
                         onTap: () {
                           addMessage();
-                        },
+                          Timer(
+                            Duration(milliseconds:250),
+                                () => _controller.jumpTo(_controller.position.maxScrollExtent),
+                          );
+                                  },
                         child: Container(
                             height: 40,
                             width: 40,
@@ -178,18 +193,17 @@ class _ChatState extends State<Chat> {
 
 }
 
+
+//Adding messages to chat screen
 class MessageTile extends StatelessWidget {
   final String message;
   final bool sendByMe;
 
   MessageTile({@required this.message, @required this.sendByMe});
 
-
   @override
   Widget build(BuildContext context) {
-
     return Container(
-
       padding: EdgeInsets.only(
           top: 8,
           bottom: 8,
@@ -213,15 +227,15 @@ class MessageTile extends StatelessWidget {
           topRight: Radius.circular(25),
           bottomRight: Radius.circular(25)),
             gradient: LinearGradient(
-              colors: sendByMe ? [
+              colors: sendByMe ?
+              [
                 Colors.blue,
                 Colors.blue,
-
-              ]
-                  : [
+              ] :
+              [
                 Colors.green[700],
                 Colors.green[700]
-                      ]
+              ]
             )
         ),
         child: Text(message,

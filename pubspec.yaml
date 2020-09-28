@@ -32,6 +32,10 @@ dependencies:
   cloud_firestore: ^0.13.5
   shared_preferences: ^0.5.10
   twitter_api: ^0.1.2
+  google_fonts: ^1.1.0
+  tweet_ui: ^2.2.0+3
+  flutter_brand_icons: ^1.1.0
+  video_player: ^0.10.11+2
 
 dev_dependencies:
   flutter_test:

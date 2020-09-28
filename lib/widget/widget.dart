@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+//This dart file contains prebuilt functions for ui change can be applied appwide by calling these functions anywhere.
 
 Widget appBarMain(BuildContext context) {
   return AppBar(
@@ -14,6 +17,23 @@ Widget appBarMain(BuildContext context) {
     centerTitle: false,
   );
 }
+
+Widget appBarChat(BuildContext context,String username) {
+  return AppBar(
+    backgroundColor: Colors.blue[700],
+    titleSpacing: -10,
+    title:
+    Stack(
+      children:[
+        Text(username.substring(0,1).toUpperCase()+username.substring(1,),
+      style: GoogleFonts.roboto(fontSize: 20,color:Colors.white),
+      textAlign: TextAlign.left,),
+  ]
+    ),
+    elevation: 0.0,
+    centerTitle: false,
+  );
+  }
 
 InputDecoration textFieldInputDecoration(String hintText) {
   return InputDecoration(

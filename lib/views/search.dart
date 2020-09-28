@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
+  final QuerySnapshot allUserNames;
+  Search(this.allUserNames);
 }
 
 class _SearchState extends State<Search> {
@@ -21,6 +23,7 @@ class _SearchState extends State<Search> {
   bool isLoading = false;
   bool haveUserSearched = false;
 
+  //This function is fired when user click on search button after entering a username on search screen
   initiateSearch() async {
     if(searchEditingController.text.trim().isNotEmpty){
       setState(() {
@@ -38,6 +41,10 @@ class _SearchState extends State<Search> {
     }
   }
 
+
+
+
+  //Creates a listView Builder for showing search results
   Widget userList(){
     return haveUserSearched ? ListView.builder(
       shrinkWrap: true,
@@ -47,14 +54,22 @@ class _SearchState extends State<Search> {
           searchResultSnapshot.documents[index].data["userName"],
           searchResultSnapshot.documents[index].data["userEmail"],
         );
-        }) : Container();
+        }) :ListView.builder(
+        shrinkWrap: true,
+        itemCount: widget.allUserNames.documents.length,
+        itemBuilder: (context, index){
+          return userTile(
+            widget.allUserNames.documents[index].data["userName"],
+            widget.allUserNames.documents[index].data["userEmail"],
+          );
+        }) ;
   }
 
-  /// 1.create a chatroom, send user to the chatroom, other userdetails
+
+  // Creating a chatroom as soon as user clicks on message button or both the users
   sendMessage(String userName){
 
       List<String> users = [Constants.myName,userName];
-
       String chatRoomId = getChatRoomId(Constants.myName,userName);
 
       Map<String, dynamic> chatRoom = {
@@ -63,19 +78,18 @@ class _SearchState extends State<Search> {
       };
 
       databaseMethods.addChatRoom(chatRoom, chatRoomId);
-
       Navigator.push(context, MaterialPageRoute(
         builder: (context) => Chat(
           chatRoomId: chatRoomId,
         )
-      ));
-
-
+      )
+      );
   }
 
+
+  //For creating search result tiles on search page
   Widget userTile(String userName,String userEmail){
     return
-      
       Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -93,7 +107,6 @@ class _SearchState extends State<Search> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
-
                 ),
               ),
               Text(
@@ -115,7 +128,7 @@ class _SearchState extends State<Search> {
                   {
                     _scaffoldKey.currentState.showSnackBar(
                         SnackBar(
-                          content: Text("You can't send message to yourself dummy !"),
+                          content: Text("You can't send message to yourself!"),
                           duration: Duration(seconds: 3),
                         ));
                   }
@@ -130,7 +143,8 @@ class _SearchState extends State<Search> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16
-                ),),
+                ),
+              ),
             ),
           )
         ],
@@ -139,6 +153,7 @@ class _SearchState extends State<Search> {
   }
 
 
+  //Creating chatroom id using both usernames
   getChatRoomId(String a, String b) {
     if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
       return "$b\_$a";
@@ -152,8 +167,7 @@ class _SearchState extends State<Search> {
     super.initState();
   }
 
-
-
+  //The search page main ui
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,11 +186,10 @@ class _SearchState extends State<Search> {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.green,Colors.greenAccent, Colors.blueAccent,Colors.blue],
+                  colors: [Colors.green.withOpacity(0.7),Colors.greenAccent.withOpacity(0.6), Colors.blueAccent.withOpacity(0.8),Colors.blue.withOpacity(0.8)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               stops: [0.2,0.5,0.8,0.9]),
-
           ),
           child: Column(
             children: [
@@ -226,18 +239,23 @@ class _SearchState extends State<Search> {
               ),
              Opacity(
                opacity: 0.95,
-               child: Container(
-                   decoration: BoxDecoration(
-                       gradient: LinearGradient(
-                           colors: [Colors.green, Colors.blue])
-                   ),
-                   child: userList()),
+               child: SingleChildScrollView(
+                 child: Container(
+                     alignment: Alignment.topCenter,
+                     height: MediaQuery.of(context).size.height-165,
+                     decoration: BoxDecoration(
+                         gradient: LinearGradient(
+                             colors: [Colors.green, Colors.blue]
+                         ),
+                     ),
+                     child: userList()
+                 ),
+               ),
              )
             ],
           ),
         ),
       ),
-
     );
   }
 }
