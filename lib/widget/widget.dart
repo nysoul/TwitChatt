@@ -11,7 +11,7 @@ Widget appBarMain(BuildContext context) {
       alignment: Alignment.center,
       color: Colors.white,
       height: 150,
-      width: 270,
+      width: 370,
     ),
     elevation: 0.0,
     centerTitle: false,

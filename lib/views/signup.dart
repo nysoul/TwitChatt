@@ -67,7 +67,7 @@ class _SignUpState extends State<SignUp> {
       body: isLoading ? Container(
         color: Colors.white,
         child: Center(child: SpinKitDoubleBounce(
-        color: Colors.white70,
+        color: Colors.black54,
         size: 50.0,
         // duration: const Duration(milliseconds: 1000),
       ),),) :

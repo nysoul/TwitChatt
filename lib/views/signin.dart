@@ -71,7 +71,7 @@ class _SignInState extends State<SignIn> {
           ? Container(
               color: Colors.white,
               child: Center(child: SpinKitDoubleBounce(
-                color: Colors.white70,
+                color: Colors.black54,
                 size: 50.0,
                 // duration: const Duration(milliseconds: 1000),
               ),),
@@ -86,7 +86,7 @@ class _SignInState extends State<SignIn> {
                       Container(
                         padding: EdgeInsets.only(top: 100),
                           alignment: Alignment.center,
-                          child: Text("Welcome To TwitChat",textAlign: TextAlign.center,style: GoogleFonts.roboto(fontSize: 45,fontWeight: FontWeight.w300,color: Colors.black54),)),
+                          child: Text("Welcome To TwitChat",textAlign: TextAlign.center,style: GoogleFonts.roboto(fontSize: 47,fontWeight: FontWeight.w300,color: Colors.black54),)),
                       Spacer(), 
                           Form(
                           key: formKey,
