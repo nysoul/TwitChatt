@@ -31,15 +31,31 @@ android studio: $ flutter pub get
 >  _2._ Application won't work in ios devices as ios app connection to firestore requires mac and I only have windows currently. (can be done in a mac machine in 10 minutes.)
 
 ## How To Use
-<p align="center">
+
+- You can either sign up or use your existing id for signing in.
+<p align="left">
 <img src="screenshots/Login.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Register.jpg" height="500"  width="300" title="Login Screen">
- <img src="screenshots/Chatroom.jpg" height="500"  width="300" title="Login Screen">
+</p>
+
+- After authentication you will reach chatroom where you can search for users using message floating button or use drawer for other features such as twitter search.
+<p align="left">
+<img src="screenshots/Chatroom.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Drawer.jpg" height="500"  width="300" title="Login Screen">
+ </p>
+ 
+ - If you did'nt search anything all the users on app will appear, you can search for a particular user using his username.
+ <p align="left">
  <img src="screenshots/Search_All.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Search_Result.jpg" height="500"  width="300" title="Login Screen">
+ </p>
+ 
+ - From the chatroom you can go to particular chatscreen by tapping any of the the chats.
+ <p align="left">
  <img src="screenshots/Chat_Screen.jpg" height="500"  width="300" title="Login Screen">
- <img src="screenshots/Drawer.jpg" height="500"  width="300" title="Login Screen">
+
+- From the drawer you can sign out of the app or use twitter search function which will show you 20 mixed(popular+recent) for the search query.
+<p align="left">
  <img src="screenshots/Sign_Out.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Twitter_Search.jpg" height="500"  width="300" title="Login Screen">
 </p>
