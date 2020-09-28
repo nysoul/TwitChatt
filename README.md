@@ -33,7 +33,7 @@ android studio: $ flutter pub get
 ## How To Use
 
 <figure class="video_container">
-  <video controls="true" allowfullscreen="true" poster="assets/iages/logo.png">
+  <video controls="true" allowfullscreen="true" poster="assets/images/logo.png">
     <source src="assets/demo/video.mp4" type="video/mp4">
       </video>
 </figure>
