@@ -38,6 +38,12 @@ android studio: $ flutter pub get
       </video>
 </figure>
 
+<!-- blank line -->
+<figure class="video_container">
+  <iframe src="assets/demo/video.mp4" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+<!-- blank line -->
+
 
 ## Timeline
 Detailed as well as overview timeline is included.
