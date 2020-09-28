@@ -31,20 +31,7 @@ android studio: $ flutter pub get
 >  _2._ Application won't work in ios devices as ios app connection to firestore requires mac and I only have windows currently. (can be done in a mac machine in 10 minutes.)
 
 ## How To Use
-
-<!-- blank line -->
-<figure class="video_container">
-  <video controls="true" allowfullscreen="true" poster="assets/images/logo.png">
-    <source src="assets/demo/video.mp4" type="video/mp4">
-      </video>
-</figure>
-<!-- blank line -->
-
-<!-- blank line -->
-<figure class="video_container">
-  <iframe src="assets/demo/video.mp4" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-<!-- blank line -->
+![Login](/screenshots/Login.jpg)*Login Screen*
 
 
 ## Timeline
