@@ -31,7 +31,7 @@ android studio: $ flutter pub get
 >  _2._ Application won't work in ios devices as ios app connection to firestore requires mac and I only have windows currently. (can be done in a mac machine in 10 minutes.)
 
 ## How To Use
-![Login](/screenshots/Login.jpg)*Login Screen*
+<img src="screenshots/Login.jpg" height="200"  width="100">
 
 
 ## Timeline
