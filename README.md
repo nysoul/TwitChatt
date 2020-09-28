@@ -32,11 +32,13 @@ android studio: $ flutter pub get
 
 ## How To Use
 
+<!-- blank line -->
 <figure class="video_container">
   <video controls="true" allowfullscreen="true" poster="assets/images/logo.png">
     <source src="assets/demo/video.mp4" type="video/mp4">
       </video>
 </figure>
+<!-- blank line -->
 
 <!-- blank line -->
 <figure class="video_container">
