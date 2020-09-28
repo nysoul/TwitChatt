@@ -50,6 +50,16 @@ class _ChatRoomState extends State<ChatRoom> {
     );
   }
 
+  Signout()
+  {
+    HelperFunctions.saveUserLoggedInSharedPreference(false);
+    AuthService().signOut();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Authenticate(),
+    ),
+      (Route route) => false,
+    );
+  }
 
   //Calling init function to call getUserInfogetChats() function
   @override
@@ -109,7 +119,7 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
       floatingActionButton: FloatingActionButton(
         mini: false,
-        child: Icon(BrandIcons.messenger,size: 35,),
+        child: Icon(Icons.message,size: 30,),
         onPressed: () async{
           await searchUsernames();
           Navigator.push(context, MaterialPageRoute(builder: (context) => Search(allUserNames)));
@@ -121,13 +131,13 @@ class _ChatRoomState extends State<ChatRoom> {
           children: <Widget>[
             DrawerHeader(child:RichText(
                              text: TextSpan(
-                                            text: 'Welcome!',
-                                            style: TextStyle(fontSize: 26,fontWeight: FontWeight.w300,color: Colors.black38),
+                                            text: 'Welcome',
+                                            style: TextStyle(fontSize: 30,fontWeight: FontWeight.w300,color: Colors.black38),
                                             children: <TextSpan>[
                                               TextSpan(text:"            "+ Constants.myName.substring(0,1).toUpperCase()+Constants.myName.substring(1,).toLowerCase(),
-                                                  style: TextStyle(fontWeight: FontWeight.w500,fontSize: 40,color: Colors.black54)),
+                                                  style: TextStyle(fontWeight: FontWeight.w600,fontSize: 38,color: Colors.black54)),
                                               TextSpan(text: "                "+Constants.myEmail,
-                                                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400))
+                                                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w300))
                                             ],
                                           ),
                                         ),
@@ -198,12 +208,8 @@ class _ChatRoomState extends State<ChatRoom> {
             FlatButton(
               child: Text('Yes'),
               onPressed: () {
-                HelperFunctions.saveUserLoggedInSharedPreference(false);
-                AuthService().signOut();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Authenticate()
-                    )
-                );
+                Signout();
+
               },
             ),
           ],

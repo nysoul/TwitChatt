@@ -1,3 +1,4 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tweet_ui/models/api/tweet.dart';
 import 'package:twitchat/helper/constants.dart';
 import 'package:twitchat/services/database.dart';
@@ -18,18 +19,25 @@ class _TweetViewState extends State<TweetView> {
   //EmbeddedTweetView output ;
   var output;
   bool isUserSearched;
-
+  int count =20;
+  String tSearch;
+  bool isLoading = false;
   @override
   void initState() {
     isUserSearched =false;
     super.initState();
   }
-
-
-
+  
+  // Function which makes request to twitter server and obtains json files
   Future twitLogin() async {
-    String tSearch = searchTweet.text;
-    int count =20;
+    if (searchTweet.text != null){
+
+      setState(() {
+        tSearch=searchTweet.text;
+        isLoading =true;
+     });
+        }
+
     print("hi");
     // Setting placeholder api keys
     String consumerApiKey = "NG8RuSe3tQwXf9I8eUro75TKP";
@@ -44,39 +52,39 @@ class _TweetViewState extends State<TweetView> {
         tokenSecret: accessTokenSecret
     );
 
-    Future twitterRequest = _twitterOauth.getTwitterRequest(
-      // Http Method
-      "GET",
-      // Endpoint you are trying to reach
-      "search/tweets.json",
-      // The options for the request
-      options: {
-//        "user_id": "19025957",
-//        "screen_name": "nike",
-        "q": tSearch,
-        "count": "$count",
-        "lang": "en",
-        "result_type": "mixed",
-        "json":"true",
-        // "trim_user": "false",
-          "tweet_mode": "extended", // Used to prevent truncating tweets
-        "enntities":"false",
+
+      Future twitterRequest = _twitterOauth.getTwitterRequest(
+        // Http Method
+        "GET",
+        // Endpoint you are trying to reach
+        "search/tweets.json",
+        // The options for the request
+        options: {
+          "q": "$tSearch",
+          "count": "$count",
+          "lang": "en",
+          "result_type": "mixed",
+          "json":"true",
+          // "trim_user": "false",
+            "tweet_mode": "extended", // Used to prevent truncating tweets
+          "enntities":"false",
+        });
+      var res = await twitterRequest.catchError((e){
+       print(e.toString());
       });
-    var res = await twitterRequest.catchError((e){
- print(e.toString());
-    });
+      
+      var tweets = json.decode(res.body);
+      
 
+      setState(() {
+        output=tweets;
+        isLoading =false;
+        isUserSearched=true;
 
+      });
+      
+      return output;
 
-
-    var tweets = json.decode(res.body);
-
-    output=tweets;
-    setState(() {
-      isUserSearched=true;
-    });
-
-    return output;
     }
 
   Widget tweetList(){
@@ -87,7 +95,7 @@ class _TweetViewState extends State<TweetView> {
             height: MediaQuery.of(context).size.height-165,
             child: ListView.builder (
                 shrinkWrap: true,
-                itemCount: 20,
+                itemCount: count,
                 itemBuilder: (context,index) {
                   return EmbeddedTweetView.fromTweet(
                       Tweet.fromRawJson(jsonEncode(output['statuses'][index])));
@@ -96,18 +104,34 @@ class _TweetViewState extends State<TweetView> {
           ),
         )
     )
-        :Container();
+        :Container(
+      decoration: BoxDecoration(color: Colors.white),
+    );
   }
-  //The search page main ui
+
+  //The tweet search page UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBarMain(context),
 
-      body: Opacity(
+      body: isLoading ? Container(
+        decoration: BoxDecoration(
+            color: Colors.grey[200])
+        ,
+        child: Center(
+          child: SpinKitWave(
+            color: Colors.blueAccent[200].withOpacity(0.8),
+            size: 50.0,
+            // duration: const Duration(milliseconds: 1000),
+          ),
+        ),
+      ) :Opacity(
         opacity: 0.95,
         child: SingleChildScrollView(
           child: Container(
+            color: Colors.grey[700],
             child: Column(
               children: [
                 Container(
@@ -131,6 +155,7 @@ class _TweetViewState extends State<TweetView> {
                       ),
                       GestureDetector(
                         onTap: (){
+
                         twitLogin();
 //                        sleep();
                         },
@@ -157,9 +182,12 @@ class _TweetViewState extends State<TweetView> {
                 ),
                 Opacity(
                   opacity: 0.95,
-                  child: SingleChildScrollView(
-                    child: tweetList(),
-                          ),
+                  child: Container(
+
+                    child: SingleChildScrollView(
+                      child: tweetList(),
+                            ),
+                  ),
                         ),
               ],
             ),

@@ -5,6 +5,7 @@ import 'package:twitchat/views/chat.dart';
 import 'package:twitchat/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -113,7 +114,7 @@ class _SearchState extends State<Search> {
                 "Email: "+ userEmail,
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16
+                    fontSize: 14
                 ),
               )
             ],
@@ -153,7 +154,7 @@ class _SearchState extends State<Search> {
   }
 
 
-  //Creating chatroom id using both usernames
+  //Creating chatroom id using both UserNames
   getChatRoomId(String a, String b) {
     if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
       return "$b\_$a";
@@ -179,80 +180,87 @@ class _SearchState extends State<Search> {
                 colors: [Colors.green, Colors.blue])
         ),
         child: Center(
-          child: CircularProgressIndicator(),
+          child: SpinKitThreeBounce(
+            color: Colors.white.withOpacity(0.7),
+            size: 50.0,
+             // duration: const Duration(milliseconds: 1000),
+            ),
         ),
       ) :  Opacity(
         opacity: 0.95,
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Colors.green.withOpacity(0.7),Colors.greenAccent.withOpacity(0.6), Colors.blueAccent.withOpacity(0.8),Colors.blue.withOpacity(0.8)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.2,0.5,0.8,0.9]),
-          ),
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                color: Color(0x54FFFFFF),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: searchEditingController,
-                        style: simpleTextStyle(),
-                        decoration: InputDecoration(
-                          hintText: "search username ...",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
+        child: SingleChildScrollView(
+          child: Container(
+           // height: MediaQuery.of(context).size.height-165,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.green.withOpacity(0.7),Colors.greenAccent.withOpacity(0.6), Colors.blueAccent.withOpacity(0.8),Colors.blue.withOpacity(0.8)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.2,0.5,0.8,0.9]),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  color: Color(0x54FFFFFF),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: searchEditingController,
+                          style: simpleTextStyle(),
+                          decoration: InputDecoration(
+                            hintText: "search username ...",
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                            border: InputBorder.none
                           ),
-                          border: InputBorder.none
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        initiateSearch();
-                      },
-                      child: Container(
-                        height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                const Color(0x36FFFFFF),
-                                const Color(0x0FFFFFFF)
-                              ],
-                              begin: FractionalOffset.topLeft,
-                              end: FractionalOffset.bottomRight
+                      GestureDetector(
+                        onTap: (){
+                          initiateSearch();
+                        },
+                        child: Container(
+                          height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  const Color(0x36FFFFFF),
+                                  const Color(0x0FFFFFFF)
+                                ],
+                                begin: FractionalOffset.topLeft,
+                                end: FractionalOffset.bottomRight
+                              ),
+                              borderRadius: BorderRadius.circular(40)
                             ),
-                            borderRadius: BorderRadius.circular(40)
-                          ),
-                          padding: EdgeInsets.all(12),
-                          child: Image.asset("assets/images/search_white.png",
-                            height: 25, width: 25,)),
-                    )
-                  ],
+                            padding: EdgeInsets.all(12),
+                            child: Image.asset("assets/images/search_white.png",
+                              height: 25, width: 25,)),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-             Opacity(
-               opacity: 0.95,
-               child: SingleChildScrollView(
-                 child: Container(
-                     alignment: Alignment.topCenter,
-                     height: MediaQuery.of(context).size.height-165,
-                     decoration: BoxDecoration(
-                         gradient: LinearGradient(
-                             colors: [Colors.green, Colors.blue]
-                         ),
-                     ),
-                     child: userList()
+               Opacity(
+                 opacity: 0.95,
+                 child: SingleChildScrollView(
+                   child: Container(
+                       //alignment: Alignment.topCenter,
+                       height: MediaQuery.of(context).size.height-170,
+                       decoration: BoxDecoration(
+                           gradient: LinearGradient(
+                               colors: [Colors.green, Colors.blue]
+                           ),
+                       ),
+                       child: userList()
+                   ),
                  ),
-               ),
-             )
-            ],
+               )
+              ],
+            ),
           ),
         ),
       ),

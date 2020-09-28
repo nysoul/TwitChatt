@@ -1,3 +1,5 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:twitchat/helper/helperfunctions.dart';
 import 'package:twitchat/helper/theme.dart';
 import 'package:twitchat/services/auth.dart';
@@ -67,48 +69,60 @@ class _SignInState extends State<SignIn> {
       appBar: appBarMain(context),
       body: isLoading
           ? Container(
-              child: Center(child: CircularProgressIndicator()),
+              color: Colors.white,
+              child: Center(child: SpinKitDoubleBounce(
+                color: Colors.white70,
+                size: 50.0,
+                // duration: const Duration(milliseconds: 1000),
+              ),),
             )
-          : Container(
-              color: Colors.white70,
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  Spacer(),
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          validator: (val) {
-                            return RegExp(
-                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(val)
-                                ? null
-                                : "Please Enter Correct Email";
-                          },
-                          controller: emailEditingController,
-                          style: TextStyle(color: Colors.black87, fontSize: 16,),
-                          decoration:textFieldInputDecoration("email"),
+          : SingleChildScrollView(
+            child: Container(
+                height: MediaQuery.of(context).size.height-80,
+                color: Colors.grey[200],
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 100),
+                          alignment: Alignment.center,
+                          child: Text("Welcome To TwitChat",textAlign: TextAlign.center,style: GoogleFonts.roboto(fontSize: 45,fontWeight: FontWeight.w300,color: Colors.black54),)),
+                      Spacer(), 
+                          Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                validator: (val) {
+                                  return RegExp(
+                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                          .hasMatch(val)
+                                      ? null
+                                      : "Please Enter Correct Email";
+                                },
+                                controller: emailEditingController,
+                                style: TextStyle(color: Colors.black87, fontSize: 16,),
+                                decoration:textFieldInputDecoration("Email"),
+                              ),
+                              TextFormField(
+                                obscureText: true,
+                                validator: (val) {
+                                  return val.length > 5
+                                      ? null
+                                      : "Enter Password 6+ characters";
+                                },
+                                  style: TextStyle(color: Colors.black87, fontSize: 15)
+                                ,
+                                controller: passwordEditingController,
+                                decoration: textFieldInputDecoration("Password"),
+                              ),
+                            ],
+                          ),
                         ),
-                        TextFormField(
-                          obscureText: true,
-                          validator: (val) {
-                            return val.length > 5
-                                ? null
-                                : "Enter Password 6+ characters";
-                          },
-                            style: TextStyle(color: Colors.black87, fontSize: 16)
-                          ,
-                          controller: passwordEditingController,
-                          decoration: textFieldInputDecoration("password"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
+                      
+                      SizedBox(
+                        height: 16,
+                      ),
 //                  Row(
 //                    mainAxisAlignment: MainAxisAlignment.end,
 //                    children: [
@@ -129,34 +143,34 @@ class _SignInState extends State<SignIn> {
 //                      )
 //                    ],
 //                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      signIn();
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xff007EF4),
-                              const Color(0xff2A75BC)
-                            ],
-                          )),
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        "Sign In",
-                        style: biggerTextStyle(),
-                        textAlign: TextAlign.center,
+                      SizedBox(
+                        height: 16,
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
+                      GestureDetector(
+                        onTap: () {
+                          signIn();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xff007EF4),
+                                  const Color(0xff2A75BC)
+                                ],
+                              )),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            "Sign In",
+                            style: biggerTextStyle(),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
 //                  GestureDetector(
 //                    onTap: (){
 //                      twitLogin();
@@ -178,35 +192,37 @@ class _SignInState extends State<SignIn> {
 //                  SizedBox(
 //                    height: 16,
 //                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account? ",
-                        style: simpleTextStyle(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have an account? ",
+                            style: TextStyle(color: Colors.black38,fontSize: 16),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              widget.toggleView();
+                            },
+                            child: Text(
+                              "Register now",
+                              style: TextStyle(
+                                  color: Colors.blue[700],
+                                  fontSize: 17,
+                                  decoration:(TextDecoration.underline),
+                                  fontStyle: FontStyle.italic,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          widget.toggleView();
-                        },
-                        child: Text(
-                          "Register now",
-                          style: TextStyle(
-                              color: Colors.blue[700],
-                              fontSize: 17,
-                              decoration:(TextDecoration.underline),
-                              fontStyle: FontStyle.italic,
-                              ),
-                        ),
-                      ),
+                      SizedBox(
+                        height: 50,
+                      )
                     ],
                   ),
-                  SizedBox(
-                    height: 50,
-                  )
-                ],
-              ),
-            ),
+                ),
+          ),
+
           );
         }
       }
