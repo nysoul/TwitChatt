@@ -32,7 +32,7 @@ android studio: $ flutter pub get
 
 ## How To Use
 <p align="center">
-<img src="screenshots/Login.jpg" height="500"  width="300" alt="Login Screen">
+<img src="screenshots/Login.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Register.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Chatroom.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Drawer.jpg" height="500"  width="300" title="Login Screen">
