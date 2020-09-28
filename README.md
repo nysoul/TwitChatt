@@ -39,6 +39,8 @@ android studio: $ flutter pub get
 - Video 
 [video](./demo.mp4)
 
+### Screenshots Demo
+
 - You can either **Sign Up** or use your existing id for **Signing In**.
 <p align="left">
 <img src="screenshots/Login.jpg" height="500"  width="300" title="Login Screen">
