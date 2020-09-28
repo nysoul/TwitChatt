@@ -32,29 +32,37 @@ android studio: $ flutter pub get
 
 ## How To Use
 
-- You can either sign up or use your existing id for signing in.
+### Demo Files
+-App
+[app](assets/demo/demoapp.apk)
+[app](./assets/demo/demoapp.apk)
+
+[video](assets/demo/demo.mp4)
+[video](./assets/demo/demo.mp4)
+
+- You can either **Sign Up** or use your existing id for **Signing In**.
 <p align="left">
 <img src="screenshots/Login.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Register.jpg" height="500"  width="300" title="Login Screen">
 </p>
 
-- After authentication you will reach chatroom where you can search for users using message floating button or use drawer for other features such as twitter search.
+- After authentication you will reach **Chatroom** where you can search for users using **Message Floating Button** or use **Drawer** for other features such as **Twitter Search**.
 <p align="left">
 <img src="screenshots/Chatroom.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Drawer.jpg" height="500"  width="300" title="Login Screen">
  </p>
  
- - If you did'nt search anything all the users on app will appear, you can search for a particular user using his username.
+ - If you did'nt search anything **All Users** on the app will appear, you can search for a particular **User** using his **Username**.
  <p align="left">
  <img src="screenshots/Search_All.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Search_Result.jpg" height="500"  width="300" title="Login Screen">
  </p>
  
- - From the chatroom you can go to particular chatscreen by tapping any of the the chats.
+ - From the **Chatroom** you can go to particular **Chatscreen** by tapping any of the the chats.
  <p align="left">
  <img src="screenshots/Chat_Screen.jpg" height="500"  width="300" title="Login Screen">
 
-- From the drawer you can sign out of the app or use twitter search function which will show you 20 mixed(popular+recent) for the search query.
+- From the **Drawer** you can **Sign Out** of the app or use **Twitter Search** function which will show you 20 **mixed(popular+recent)** for the search query.
 <p align="left">
  <img src="screenshots/Sign_Out.jpg" height="500"  width="300" title="Login Screen">
  <img src="screenshots/Twitter_Search.jpg" height="500"  width="300" title="Login Screen">
