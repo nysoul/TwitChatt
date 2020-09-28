@@ -33,12 +33,11 @@ android studio: $ flutter pub get
 ## How To Use
 
 ### Demo Files
--App
-[app](assets/demo/demoapp.apk)
-[app](./assets/demo/demoapp.apk)
+-A pp
+[app](./demoapp.apk)
 
-[video](assets/demo/demo.mp4)
-[video](./assets/demo/demo.mp4)
+- Video 
+(./demo.mp4)
 
 - You can either **Sign Up** or use your existing id for **Signing In**.
 <p align="left">
