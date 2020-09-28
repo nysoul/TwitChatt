@@ -31,8 +31,18 @@ android studio: $ flutter pub get
 >  _2._ Application won't work in ios devices as ios app connection to firestore requires mac and I only have windows currently. (can be done in a mac machine in 10 minutes.)
 
 ## How To Use
+<p align="center">
 <img src="screenshots/Login.jpg" height="500"  width="300" alt="Login Screen">
-
+ <img src="screenshots/Register.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Chatroom.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Drawer.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Search_All.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Search_Result.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Chat_Screen.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Drawer.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Sign_Out.jpg" height="500"  width="300" title="Login Screen">
+ <img src="screenshots/Twitter_Search.jpg" height="500"  width="300" title="Login Screen">
+</p>
 
 ## Timeline
 Detailed as well as overview timeline is included.
